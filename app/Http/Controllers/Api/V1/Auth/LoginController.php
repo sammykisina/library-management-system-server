@@ -34,6 +34,7 @@ class LoginController {
                 'error' => 0,
                 'message' => 'Welcome Back.',
                 'user' => [
+                    'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
                     'role' => $role[0],

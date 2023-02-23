@@ -16,7 +16,7 @@ class UserService {
 
     public function getAllUsers(): Collection {
         return QueryBuilder::for(subject: User::class)
-           ->allowedIncludes(includes: ['role'])
+           ->allowedIncludes(includes: ['role', 'bookBorrows'])
            ->defaultSort('-created_at')
            ->allowedFilters(filters: AllowedFilter::exact('role.slug'))
            ->get();

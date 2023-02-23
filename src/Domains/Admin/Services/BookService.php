@@ -11,6 +11,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 class BookService {
     public function fetchAllBooks(): Collection {
         return QueryBuilder::for(Book::class)
+        ->allowedIncludes(includes:['borrows.book', 'borrows.borrower'])
           ->defaultSort('-created_at')
           ->get();
     }
@@ -25,5 +26,9 @@ class BookService {
 
     public function deleteBook(Book $book): void {
         $book->delete();
+    }
+
+    public function storeBookLocation(array $bookLocationData, Book $book): void {
+        $book->update($bookLocationData);
     }
 }

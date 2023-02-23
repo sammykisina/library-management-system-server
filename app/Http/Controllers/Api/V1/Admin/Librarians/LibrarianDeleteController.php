@@ -2,30 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api\V1\Admin\Books;
+namespace App\Http\Controllers\Api\V1\Admin\Librarians;
 
-use App\Http\Requests\Admin\BookStoreRequest;
-use Domains\Admin\Services\BookService;
+use Domains\Admin\Services\LibrarianService;
+use Domains\Shared\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use JustSteveKing\StatusCode\Http;
 
-class StoreBookController {
-    public function __construct(
-        protected BookService $service
-    ) {
-    }
-
-    public function __invoke(BookStoreRequest $request): JsonResponse {
+class LibrarianDeleteController {
+    public function __invoke(User $librarian, LibrarianService $librarianService): JsonResponse {
         try {
-            $this->service->storeBook(
-                newBookData: $request->bookStoreData()
+            $librarianService->deleteLibrarian(
+                librarian: $librarian
             );
 
             return response()->json(
                 data: [
                     'error' => 0,
-                    'message' => 'Book created successfully.'
+                    'message' => 'Librarian created successfully.'
                 ],
                 status: Http::ACCEPTED()
             );
@@ -34,7 +29,7 @@ class StoreBookController {
             return response()->json(
                 data: [
                     'error' => 1,
-                    'message' => 'Something went wrong. Book not created.'
+                    'message' => 'Something went wrong. Librarian not deleted.'
                 ],
                 status: Http::NOT_IMPLEMENTED()
             );

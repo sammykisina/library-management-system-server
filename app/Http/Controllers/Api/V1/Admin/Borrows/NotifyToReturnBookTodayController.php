@@ -2,39 +2,36 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api\V1\Admin\Books;
+namespace App\Http\Controllers\Api\V1\Admin\Borrows;
 
-use App\Http\Requests\Admin\BookStoreRequest;
-use Domains\Admin\Services\BookService;
+use Domains\Admin\Services\BorrowService;
+use Domains\User\Models\Borrow;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use JustSteveKing\StatusCode\Http;
 
-class StoreBookController {
+class NotifyToReturnBookTodayController {
     public function __construct(
-        protected BookService $service
+        protected BorrowService $service
     ) {
     }
 
-    public function __invoke(BookStoreRequest $request): JsonResponse {
+    public function __invoke(Borrow  $borrow): JsonResponse {
         try {
-            $this->service->storeBook(
-                newBookData: $request->bookStoreData()
-            );
-
+            $this->service->notifyBorrowerToReturnBookToday(borrow: $borrow);
             return response()->json(
-                data: [
+                data:[
                     'error' => 0,
-                    'message' => 'Book created successfully.'
+                    'message' => 'Borrower notified successfully.'
                 ],
                 status: Http::ACCEPTED()
             );
         } catch (\Throwable $th) {
             Log::info($th);
             return response()->json(
-                data: [
+                data:[
                     'error' => 1,
-                    'message' => 'Something went wrong. Book not created.'
+                    'message' => 'Something went wrong.Notification not send.'
                 ],
                 status: Http::NOT_IMPLEMENTED()
             );

@@ -58,6 +58,8 @@ class BookStoreRequest extends FormRequest {
     }
 
     public function bookStoreData(): array {
-        return $this->validated();
+        $bookStoreData = $this->validated();
+        $bookStoreData['currentCount'] = $bookStoreData['count'];
+        return $bookStoreData;
     }
 }

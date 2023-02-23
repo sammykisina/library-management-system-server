@@ -25,6 +25,7 @@ class RegisterController {
                     'error' => 0,
                     'message' => 'Account Created. Welcome',
                     'user' => [
+                        'id' => $user->id,
                         'name' => $user->name,
                         'email' => $user->email,
                         'role' => $role[0],

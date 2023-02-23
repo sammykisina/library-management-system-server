@@ -4,28 +4,30 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Admin\Books;
 
-use App\Http\Requests\Admin\BookStoreRequest;
+use App\Http\Requests\Admin\BookLocationStoreRequest;
+use Domains\Admin\Models\Book;
 use Domains\Admin\Services\BookService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use JustSteveKing\StatusCode\Http;
 
-class StoreBookController {
+class StoreBookLocationController {
     public function __construct(
         protected BookService $service
     ) {
     }
 
-    public function __invoke(BookStoreRequest $request): JsonResponse {
+    public function __invoke(BookLocationStoreRequest $request, Book $book): JsonResponse {
         try {
-            $this->service->storeBook(
-                newBookData: $request->bookStoreData()
+            $this->service->storeBookLocation(
+                bookLocationData: $request->bookLocationData(),
+                book: $book
             );
 
             return response()->json(
                 data: [
                     'error' => 0,
-                    'message' => 'Book created successfully.'
+                    'message' => 'Book location created successfully.'
                 ],
                 status: Http::ACCEPTED()
             );
@@ -33,8 +35,8 @@ class StoreBookController {
             Log::info($th);
             return response()->json(
                 data: [
-                    'error' => 1,
-                    'message' => 'Something went wrong. Book not created.'
+                    'error' => 0,
+                    'message' => 'Something went wrong. Book location not created.'
                 ],
                 status: Http::NOT_IMPLEMENTED()
             );

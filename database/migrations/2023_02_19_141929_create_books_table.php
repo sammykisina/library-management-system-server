@@ -19,8 +19,13 @@ return new class extends Migration {
             $table->integer(column: 'price');
             $table->text(column: 'description');
             $table->integer(column: 'count');
+            $table->integer(column: 'currentCount');
             $table->integer(column: 'pages');
             $table->string(column: 'status');
+
+            $table->string(column: 'block')->nullable();
+            $table->string(column: 'shelve')->nullable();
+            $table->string(column: 'row')->nullable();
 
             $table->timestamps();
         });

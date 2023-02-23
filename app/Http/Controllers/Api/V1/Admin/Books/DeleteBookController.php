@@ -24,7 +24,7 @@ class DeleteBookController {
                     'error' => 0,
                     'message' => 'Book deleted successfully.'
                 ],
-                status: Http::NOT_IMPLEMENTED()
+                status: Http::ACCEPTED()
             );
         } catch (\Throwable $th) {
             Log::info($th);
