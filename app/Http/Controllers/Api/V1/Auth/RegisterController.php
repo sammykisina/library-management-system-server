@@ -28,6 +28,7 @@ class RegisterController {
                         'id' => $user->id,
                         'name' => $user->name,
                         'email' => $user->email,
+                        'phone' => $user->phone,
                         'role' => $role[0],
                     ],
                     'token' => $plainTextToken

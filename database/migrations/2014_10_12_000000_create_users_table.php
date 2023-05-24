@@ -13,7 +13,7 @@ return new class extends Migration {
 
             $table->string(column: 'name');
             $table->string(column: 'email')->unique();
-            $table->timestamp(column: 'email_verified_at')->nullable();
+            $table->string(column: 'phone')->unique()->nullable();
             $table->string(column: 'password');
 
             $table->foreignId(column: 'role_id')

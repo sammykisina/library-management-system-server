@@ -23,6 +23,10 @@ class RegisterRequest extends FormRequest {
             'password' => [
                 'required',
                 'string'
+            ],
+            'phone' => [
+                'required',
+                'string'
             ]
         ];
     }
